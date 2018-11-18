@@ -1,0 +1,37 @@
+# Compiled source
+*.o
+*.so
+*.class
+*.com
+*.dll
+
+# Executables
+*.out
+*.app
+*.exe
+
+# Eclipse
+.project
+
+<<<<<<< HEAD
+#
+*.d
+*.obj
+*.lo
+*.slo
+*.dll
+*.lib
+*.dylib
+*.a
+*.app
+*.la
+*.lai
+
+target_wrapper.*
+*.autosave
+
+/.qmake.stash
+/.qmake.cache
+
+Makefile*
+
