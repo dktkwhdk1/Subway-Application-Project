@@ -1,0 +1,17 @@
+# Compiled source
+*.o
+*.so
+*.class
+*.com
+*.dll
+
+# Executables
+*.out
+*.app
+*.exe
+
+# Eclipse
+.project
+
+Makefile
+*.stash
