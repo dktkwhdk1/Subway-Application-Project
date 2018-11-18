@@ -7,5 +7,6 @@ Finding program that shortest route of Metropolitan subway
 
 2. GUI를 구현하기 위한 Qt creator를 다운로드 하였다.
 
-  2-1. Qt creator를 사용하지 않고 터미널에서 간단한 Qt 예제 코드를 컴파일하여 보았다.
-  2-2. Qt creator를 사용하여 Hello World!를 출력하는 코드를 작성하고, 출력하여 보았다.
+2-1. test_qt : Qt creator를 사용하지 않고 터미널에서 간단한 Qt 예제 코드를 컴파일하여 보았다.
+
+2-2. image.png : Qt creator를 사용하여 Hello World!를 출력하는 코드를 작성하고, 출력하여 보았다.
