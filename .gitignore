@@ -14,6 +14,7 @@
 .project
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #
 *.d
 *.obj
@@ -35,3 +36,7 @@ target_wrapper.*
 
 Makefile*
 
+=======
+Makefile
+*.stash
+>>>>>>> 548a7b940b01502a4254282627f9d866137a65ef
