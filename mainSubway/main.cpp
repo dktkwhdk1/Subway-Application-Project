@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
-    w.setWindowTitle("Subway");
+    w.setWindowTitle("SMART SUBWAY");
     w.show();
 
     /*

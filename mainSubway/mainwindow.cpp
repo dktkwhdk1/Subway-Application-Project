@@ -32,3 +32,8 @@ void MainWindow::on_pushButton_clicked()
 
     subway.close();
 }
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    QMessageBox::information(this, tr("최단시간 경로"), tr("HELLO"));
+}
