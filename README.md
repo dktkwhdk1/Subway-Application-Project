@@ -11,3 +11,6 @@ Finding program that shortest route of Metropolitan subway
 
 2-2. example1 : Qt creator를 사용하여 Hello World!를 출력하는 코드를 작성하고, 출력한 결과이다.
 
+3. 출발역과 도착역을 입력하여 search 버튼을 누르면 최단경로를 보여주게끔 GUI의 틀을 구성하였다.
+
+4. Qt ui 내부에에서 "subway.txt"파일을 읽어들여 search 버튼을 누르면 해당 파일의 모든 내용을 출력하여 주도록 해 보았다.

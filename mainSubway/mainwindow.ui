@@ -30,7 +30,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>close</string>
+     <string>닫기</string>
     </property>
    </widget>
    <widget class="QTextBrowser" name="textBrowser">
@@ -43,7 +43,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -60,7 +60,7 @@
 font: 13pt &quot;Ubuntu&quot;;</string>
        </property>
        <property name="text">
-        <string>start : </string>
+        <string>출발역 : </string>
        </property>
        <property name="buddy">
         <cstring>lineEdit</cstring>
@@ -80,7 +80,7 @@ font: 13pt &quot;Ubuntu&quot;;</string>
         <string notr="true">font: 13pt &quot;Ubuntu&quot;;</string>
        </property>
        <property name="text">
-        <string>  arrive : </string>
+        <string>도착역 :</string>
        </property>
        <property name="buddy">
         <cstring>lineEdit_2</cstring>
