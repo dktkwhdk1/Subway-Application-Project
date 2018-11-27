@@ -18,7 +18,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    QString filename = "/home/dktkwhdk12/Subway_project/subway.txt";
+    QString filename = "/home/dktkwhdk1/Subway_project/subway.txt";
 
     QFile subway(filename);
 
@@ -35,5 +35,19 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_pushButton_3_clicked()
 {
-    QMessageBox::information(this, tr("최단시간 경로"), tr("HELLO"));
+    //QMessageBox::information(this, tr("최단시간 경로"), tr("HELLO"));
+    QString filename = "/home/dktkwhdk1/Subway_project/subway.txt";
+
+    QFile subway(filename);
+
+    if(!subway.open(QFile::ReadOnly | QFile::Text))
+    {
+        QMessageBox::information(0,"info",subway.errorString());
+    }
+    QTextStream in(&subway);
+    QString r = in.readAll();
+    //ui->textBrowser->setText(r);
+    QMessageBox::information(this, tr("최단시간 경로"), r);
+
+    subway.close();
 }
