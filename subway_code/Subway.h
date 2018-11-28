@@ -1,3 +1,4 @@
+
 #ifndef SUBWAY_H
 #define SUBWAY_H
 
@@ -19,3 +20,13 @@ public:
 	bool check; // 환승역인지 아닌지 check
 	Station() : next(NULL) {}
 };
+class SubwayGraph // 지하철망
+{
+private:
+	string* station_name; // 역이름
+	Station* map; 
+	int n; // 지하철 역 갯수
+public:
+	void Subway(const char* name, int N);
+
+}
