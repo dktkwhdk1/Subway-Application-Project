@@ -1,4 +1,3 @@
-
 #ifndef SUBWAY_H
 #define SUBWAY_H
 
@@ -29,4 +28,6 @@ private:
 public:
 	void Subway(const char* name, int N);
 
-}
+};
+
+#endif

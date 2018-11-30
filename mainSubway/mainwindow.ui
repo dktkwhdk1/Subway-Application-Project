@@ -125,8 +125,8 @@ font: 13pt &quot;Ubuntu&quot;;</string>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>449</x>
-     <y>275</y>
+     <x>419</x>
+     <y>224</y>
     </hint>
     <hint type="destinationlabel">
      <x>170</x>
