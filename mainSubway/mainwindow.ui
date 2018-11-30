@@ -75,7 +75,7 @@ font: 13pt &quot;Ubuntu&quot;;</string>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="search1">
        <property name="text">
         <string>search</string>
        </property>

@@ -5,6 +5,7 @@
 #include <fstream>
 #include <stack> // 지하철 경로를 출력할때 필요
 #include <string>
+#include <QString>
 using namespace std;
 
 enum color { white, gray }; // 역을 지났는지 안지났는지 판단
@@ -22,7 +23,7 @@ public:
 class SubwayGraph // 지하철망
 {
 private:
-        string* station_name; // 역이름
+        QString* station_name; // 역이름
         Station* map;
         color* check;
         int n; // 지하철 역 갯수

@@ -23,8 +23,12 @@ private slots:
 
     void on_lineEdit_textEdited(const QString &arg1);
 
+    void on_search1_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
+
+//extern MainWindow *theMainWindow;
 
 #endif // MAINWINDOW_H
