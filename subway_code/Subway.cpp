@@ -77,3 +77,59 @@ void SubwayGraph::Subway(const char* name, int N)
 	}
 	file.close();
 }
+string input_station; // 역 입력
+
+	// 지하철 시작, 끝부분 입력과 예외처리
+	while (start == end)
+	{
+
+		while (start == -1)
+		{
+			cout << "출발 : ";
+			cin >> input_station;
+
+			for (int i = 0; i < n; i++)
+			{
+				if (station_name[i] == input_station)
+				{
+					start = i;
+					break;
+				}
+			}
+
+			if (start == -1)
+			{
+				cout << "존재하는 역이 아닙니다." << endl;
+			}
+		}
+
+		while (end == -1)
+		{
+
+			cout << "도착 : ";
+			cin >> input_station;
+
+			for (int i = 0; i < n; i++)
+			{
+				if (station_name[i] == input_station)
+				{
+					end = i;
+					cout << endl;
+					break;
+				}
+			}
+
+			if (end == -1)
+			{
+				cout << "존재하는 역이 아닙니다." << endl;
+			}
+
+		}
+
+		if (start == end)
+		{
+			cout << "출발역과 도착역이 같습니다." << endl;
+			start = end = -1;
+		}
+	}
+}
