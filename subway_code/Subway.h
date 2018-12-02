@@ -23,10 +23,13 @@ class SubwayGraph // 지하철망
 {
 private:
 	string* station_name; // 역이름
-	Station* map; 
+	Station* map;
+	color* check;
+	 
 	int n; // 지하철 역 갯수
 public:
 	void Subway(const char* name, int N);
+	void Dijkstra(int start, bool t);
 
 };
 

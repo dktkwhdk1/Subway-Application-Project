@@ -133,3 +133,41 @@ string input_station; // 역 입력
 		}
 	}
 }
+
+void SubwayGraph::Dijkstra(int start, bool choose) // 다익스트라 알고리즘 사용
+{
+	int minvalue_pos;
+	check[start] = gray;
+
+	// 시작점 초기화
+	map[start].time = 0;
+	map[start].transfer = 0;
+
+	for (int i = 0; i < n - 2; i++)
+	{
+		minvalue_pos = ChooseSubwayPath(choose);
+		check[minvalue_pos] = gray;
+
+		for (Station* p = map[minvalue_pos].next; p != NULL; p = p->next)
+		{
+			if (choose) // 최단시간 경로일때
+			{
+				if (map[minvalue_pos].time + p->time < map[p->num].time) // 시간을 비교하여 업데이트
+				{
+					map[p->num].time = map[minvalue_pos].time + p->time;
+					map[p->num].transfer = map[minvalue_pos].transfer + p->transfer;
+				}
+				else if (map[minvalue_pos].time + p->time == map[p->num].time) // 시간이 같을 경우
+				{
+					if (map[minvalue_pos].transfer + p->transfer < map[p->num].transfer) // 환승횟수 비교
+					{
+						map[p->num].time = map[minvalue_pos].time + p->time;
+						map[p->num].transfer = map[minvalue_pos].transfer + p->transfer;
+					}
+				}
+			}
+
+		}
+	}
+
+}
