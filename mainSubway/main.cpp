@@ -12,11 +12,15 @@
 #include <QStringList>
 #include <QStringData>
 
+//void SubwayGraph::Subway(const char *name, int N);
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
+
+    SubwayGraph run_test;
+    run_test.Subway("/home/dktkwhdk12/Subway_project/subway.txt", MAX_STATION);
 
 
     w.setWindowTitle("SMART SUBWAY");

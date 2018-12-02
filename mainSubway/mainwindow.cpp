@@ -46,7 +46,7 @@ void MainWindow::on_lineEdit_textEdited(const QString &arg1)
     QString start = arg1;
 }
 */
-/*
+
 void SubwayGraph::Subway(const char* name, int N)
 {
     QFile subway(name);
@@ -67,7 +67,9 @@ void SubwayGraph::Subway(const char* name, int N)
     station_name = new QString[n];
     check = new color[n];
 
-    int n1, n2, time;
+    int n1 = 0;
+    int n2 = 0;
+    int time = 0;
     QString s1, s2;
 
     //subway.open(QIODevice::ReadOnly | QIODevice::Text);
@@ -93,12 +95,22 @@ void SubwayGraph::Subway(const char* name, int N)
         //in.readLine();
 
         //in.setCodec("UTF-8");
-/*
+
+
         in >> n1;
+        if(n1 == 0)
+        {
+            break;
+        }
+        qDebug() << " " << n1;
         in >> n2;
+        qDebug() << " " << n2;
         in >> time;
+        qDebug() << " " << time;
         in >> s1;
+        qDebug() << " " << s1;
         in >> s2;
+        qDebug() << " " << s2;
 
         // 배열이 0부터 시작하기 떄문에 -1씩 빼준다.
         n1 -= 1;
@@ -162,7 +174,7 @@ void SubwayGraph::Subway(const char* name, int N)
 
 
 }
-*/
+
 /*
 void MainWindow::on_pushButton_clicked()
 {
