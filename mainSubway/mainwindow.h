@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QObject>
+#include <QMessageBox>
 #include "Subway.h"
 #include <iostream>
 #include <fstream>
@@ -30,6 +31,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
 
 private slots:
     //void on_pushButton_clicked();

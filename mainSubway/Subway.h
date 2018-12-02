@@ -39,7 +39,6 @@ public:
         static int n; // 지하철 역 갯수
         static int start; // 시작역
         static int end; // 도착역
-
 };
 
 #endif // SUBWAY_H
