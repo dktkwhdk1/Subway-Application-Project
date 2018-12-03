@@ -133,7 +133,6 @@ string input_station; // 역 입력
 		}
 	}
 }
-
 void SubwayGraph::Dijkstra(int start, bool choose) // 다익스트라 알고리즘 사용
 {
 	int minvalue_pos;
@@ -170,4 +169,64 @@ void SubwayGraph::Dijkstra(int start, bool choose) // 다익스트라 알고리�
 		}
 	}
 
+}
+int SubwayGraph::ChooseSubwayPath(bool choose) // choose = 1이면 최단시간을 가지는 역의 
+											//index반환, choose = 0이면 최소환승을 가지는 역의 index반환
+{
+	int min_time = 99999999;
+	int min_transfer = 99999999;
+	int pos = -1;
+
+	if (choose) // 최단시간
+	{
+		for (int i = 0; i < n; i++)
+		{
+			if (check[i] == white)
+			{
+				if (map[i].time < min_time)
+				{
+					min_time = map[i].time;
+					min_transfer = map[i].transfer;
+					pos = i;
+				}
+				else if (map[i].time == min_time)
+				{
+					if (map[i].transfer < min_transfer)
+					{
+						min_time = map[i].time;
+						min_transfer = map[i].transfer;
+						pos = i;
+					}
+				}
+			}
+		}
+
+	}
+	else // 최소환승
+	{
+
+		for (int i = 0; i < n; i++)
+		{
+			if (check[i] == white)
+			{
+				if (map[i].transfer < min_transfer) // 환승 횟수가 작은 인접리스트 선택
+				{
+					min_time = map[i].time;
+					min_transfer = map[i].transfer;
+					pos = i;
+				}
+				else if (map[i].transfer == min_transfer) // 환승 횟수가 같으면
+				{
+					if (map[i].time < min_time) // 시간이 덜드는 인접리스트 선택
+					{
+						min_time = map[i].time;
+						min_transfer = map[i].transfer;
+						pos = i;
+					}
+				}
+			}
+		}
+
+	}
+	return pos; // 인덱스 반환
 }
