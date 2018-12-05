@@ -33,6 +33,8 @@ private:
 */
 public:
         void Subway(const char* name, int N);
+        void Dijkstra(int start, bool t);
+        int ChooseSubwayPath(bool choose);
         static QString* station_name; // 역이름
         static Station* map;
         static color* check;
