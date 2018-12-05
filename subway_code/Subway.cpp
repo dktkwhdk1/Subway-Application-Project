@@ -230,3 +230,21 @@ int SubwayGraph::ChooseSubwayPath(bool choose) // choose = 1이면 최단시간�
 	}
 	return pos; // 인덱스 반환
 }
+bool SubwayGraph::SubwayRoute(stack<int> &s, int start, int end) // stack에 지나간 지하철을 넣어주는 재귀함수
+{
+	s.push(start);
+
+	if (start == end) // 종료조건
+		return true;
+	else{ // recursive
+		for (Station* p = map[start].next; p != NULL; p = p->next) // 시작점에 연결된 엣지를 모두 조사한다
+		{
+			if (map[start].time + p->time == map[p->num].time && map[start].transfer + p->transfer == map[p->num].transfer)
+			{
+				if (this->SubwayRoute(s, p->num, end) == false)	s.pop();// 다음 경로가 존재하지 않을 경우
+				else return true;
+			}
+		}
+		return false;
+	}
+}
