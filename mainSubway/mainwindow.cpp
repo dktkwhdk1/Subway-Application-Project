@@ -224,12 +224,6 @@ int SubwayGraph::ChooseSubwayPath(bool choose) // choose = 1이면 최단시간�
     return pos; // 인덱스 반환
 }
 
-
-void MainWindow::on_lineEdit_2_returnPressed()
-{
-
-}
-
 void MainWindow::on_search1_clicked()
 {
     QString input_station;
@@ -293,25 +287,7 @@ void MainWindow::on_search1_clicked()
     }
 }
 
-
-void MainWindow::on_pushButton_3_clicked()
+void MainWindow::on_search1_2_clicked()
 {
-    /*
-    //QMessageBox::information(this, tr("최단시간 경로"), tr("HELLO"));
-    QString filename = "/home/dktkwhdk12/Subway_project/subway.txt";
 
-    QFile subway(filename);
-
-    if(!subway.open(QFile::ReadOnly | QFile::Text))
-    {
-        QMessageBox::information(0,"info",subway.errorString());
-    }
-    QTextStream in(&subway);
-    QString r = in.readAll();
-    //ui->textBrowser->setText(r);
-    QMessageBox::information(this, tr("최단시간 경로"), r);
-
-    subway.close();
-    */
-    ui->textBrowser->setText("hello");
 }

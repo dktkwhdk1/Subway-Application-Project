@@ -24,13 +24,35 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>30</y>
+      <y>110</y>
       <width>411</width>
-      <height>51</height>
+      <height>141</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0" rowspan="2">
+      <widget class="QTextBrowser" name="textBrowser"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="pushButton_2">
+       <property name="text">
+        <string>닫기</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>411</width>
+      <height>58</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="0" rowspan="2">
       <widget class="QLabel" name="label">
        <property name="styleSheet">
         <string notr="true">font: 14pt &quot;Ubuntu&quot;;
@@ -44,14 +66,14 @@ font: 13pt &quot;Ubuntu&quot;;</string>
        </property>
       </widget>
      </item>
-     <item>
+     <item row="0" column="1" rowspan="2">
       <widget class="QLineEdit" name="lineEdit">
        <property name="text">
         <string/>
        </property>
       </widget>
      </item>
-     <item>
+     <item row="0" column="2" rowspan="2">
       <widget class="QLabel" name="label_2">
        <property name="styleSheet">
         <string notr="true">font: 13pt &quot;Ubuntu&quot;;</string>
@@ -64,7 +86,7 @@ font: 13pt &quot;Ubuntu&quot;;</string>
        </property>
       </widget>
      </item>
-     <item>
+     <item row="0" column="3" rowspan="2">
       <widget class="QLineEdit" name="lineEdit_2">
        <property name="styleSheet">
         <string notr="true"/>
@@ -74,39 +96,17 @@ font: 13pt &quot;Ubuntu&quot;;</string>
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QPushButton" name="search1">
+     <item row="0" column="4">
+      <widget class="QPushButton" name="search1_2">
        <property name="text">
         <string>search</string>
        </property>
       </widget>
      </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>110</y>
-      <width>411</width>
-      <height>141</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0" rowspan="2">
-      <widget class="QTextBrowser" name="textBrowser"/>
-     </item>
-     <item row="0" column="1">
-      <widget class="QPushButton" name="pushButton_3">
+     <item row="1" column="4">
+      <widget class="QPushButton" name="search1">
        <property name="text">
-        <string>message</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QPushButton" name="pushButton_2">
-       <property name="text">
-        <string>닫기</string>
+        <string>search</string>
        </property>
       </widget>
      </item>
