@@ -20,14 +20,6 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-    /*
-    SubwayGraph station_name; // 역이름
-    SubwayGraph map;
-    SubwayGraph check;
-    SubwayGraph n; // 지하철 역 갯수
-    SubwayGraph start; // 시작역
-    SubwayGraph end; // 도착역
-    */
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
@@ -46,10 +38,10 @@ private slots:
 
     void on_lineEdit_2_returnPressed();
 
+    void on_search1_2_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
-
-//extern MainWindow *theMainWindow;
 
 #endif // MAINWINDOW_H

@@ -34,27 +34,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-/*
-QMessageBox::~QMessageBox()
-{
-    MainWindow::ui->lineEdit->clear();
-    MainWindow::ui->lineEdit_2->clear();
-}
-*/
-/*
-MainWindow *theMainWindow = 0;
-MainWindow::MainWindow()
-{
-    theMainWindow = this;
-}
-*/
-/*
-void MainWindow::on_lineEdit_textEdited(const QString &arg1)
-{
-    QString start = arg1;
-}
-*/
-
 void SubwayGraph::Subway(const char* name, int N)
 {
     QFile subway(name);
@@ -146,10 +125,103 @@ void SubwayGraph::Subway(const char* name, int N)
     }
     subway.close();
 }
-
-void MainWindow::on_lineEdit_2_returnPressed()
+void SubwayGraph::Dijkstra(int start, bool choose) // 다익스트라 알고리즘 사용
 {
+    int minvalue_pos;
+    check[start] = gray;
 
+    // 시작점 초기화
+    map[start].time = 0;
+    map[start].transfer = 0;
+
+    for (int i = 0; i < n - 2; i++)
+    {
+        minvalue_pos = ChooseSubwayPath(choose);
+        check[minvalue_pos] = gray;
+
+        for (Station* p = map[minvalue_pos].next; p != NULL; p = p->next)
+        {
+            if (choose) // 최단시간 경로일때
+            {
+                if (map[minvalue_pos].time + p->time < map[p->num].time) // 시간을 비교하여 업데이트
+                {
+                    map[p->num].time = map[minvalue_pos].time + p->time;
+                    map[p->num].transfer = map[minvalue_pos].transfer + p->transfer;
+                }
+                else if (map[minvalue_pos].time + p->time == map[p->num].time) // 시간이 같을 경우
+                {
+                    if (map[minvalue_pos].transfer + p->transfer < map[p->num].transfer) // 환승횟수 비교
+                    {
+                        map[p->num].time = map[minvalue_pos].time + p->time;
+                        map[p->num].transfer = map[minvalue_pos].transfer + p->transfer;
+                    }
+                }
+            }
+
+        }
+    }
+
+}
+
+int SubwayGraph::ChooseSubwayPath(bool choose) // choose = 1이면 최단시간을 가지는 역의
+
+//index반환, choose = 0이면 최소환승을 가지는 역의 index반환
+{
+    int min_time = 99999999;
+    int min_transfer = 99999999;
+    int pos = -1;
+    if (choose) // 최단시간
+    {
+        for (int i = 0; i < n; i++)
+        {
+            if (check[i] == white)
+            {
+                if (map[i].time < min_time)
+                {
+                    min_time = map[i].time;
+                    min_transfer = map[i].transfer;
+                    pos = i;
+                }
+                else if (map[i].time == min_time)
+                {
+                    if (map[i].transfer < min_transfer)
+                    {
+                        min_time = map[i].time;
+                        min_transfer = map[i].transfer;
+                        pos = i;
+                    }
+                }
+            }
+        }
+
+    }
+    else // 최소환승
+    {
+
+        for (int i = 0; i < n; i++)
+        {
+            if (check[i] == white)
+            {
+                if (map[i].transfer < min_transfer) // 환승 횟수가 작은 인접리스트 선택
+                {
+                    min_time = map[i].time;
+                    min_transfer = map[i].transfer;
+                    pos = i;
+                }
+                else if (map[i].transfer == min_transfer) // 환>승 횟수가 같으면
+                {
+                    if (map[i].time < min_time) // 시간이 덜드는 인접리스트 선택
+                    {
+                        min_time = map[i].time;
+                        min_transfer = map[i].transfer;
+                        pos = i;
+                    }
+                }
+            }
+        }
+
+    }
+    return pos; // 인덱스 반환
 }
 
 void MainWindow::on_search1_clicked()
@@ -215,25 +287,7 @@ void MainWindow::on_search1_clicked()
     }
 }
 
-
-void MainWindow::on_pushButton_3_clicked()
+void MainWindow::on_search1_2_clicked()
 {
-    /*
-    //QMessageBox::information(this, tr("최단시간 경로"), tr("HELLO"));
-    QString filename = "/home/dktkwhdk12/Subway_project/subway.txt";
 
-    QFile subway(filename);
-
-    if(!subway.open(QFile::ReadOnly | QFile::Text))
-    {
-        QMessageBox::information(0,"info",subway.errorString());
-    }
-    QTextStream in(&subway);
-    QString r = in.readAll();
-    //ui->textBrowser->setText(r);
-    QMessageBox::information(this, tr("최단시간 경로"), r);
-
-    subway.close();
-    */
-    ui->textBrowser->setText("hello");
 }

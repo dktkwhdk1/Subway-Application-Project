@@ -20,19 +20,13 @@ public:
         bool check; // 환승역인지 아닌지 check
         Station() : next(NULL) {}
 };
+
 class SubwayGraph // 지하철망
 {
-/*
-private:
-        QString* station_name; // 역이름
-        Station* map;
-        color* check;
-        int n; // 지하철 역 갯수
-        int start; // 시작역
-        int end; // 도착역
-*/
 public:
         void Subway(const char* name, int N);
+        void Dijkstra(int start, bool t);
+        int ChooseSubwayPath(bool choose);
         static QString* station_name; // 역이름
         static Station* map;
         static color* check;
