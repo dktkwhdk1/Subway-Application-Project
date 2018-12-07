@@ -284,6 +284,165 @@ bool SubwayGraph::SubwayRoute(stack<int> &s, int start, int end) // stack에 지
 
 void MainWindow::on_search1_2_clicked() // 최단시간 클릭시
 {
+    QString result;
+    QString input_station;
+    QString k = "존재하는 역이 아닙니다";
+    QString k2 = "출발역과 도착역이 같습니다";
+
+    while(SubwayGraph::start == SubwayGraph::end)
+    {
+        while(SubwayGraph::start == -1)
+        {
+            input_station = ui->lineEdit->text();
+
+            for(int i = 0; i < SubwayGraph::n; i++)
+            {
+                if(SubwayGraph::station_name[i] == input_station)
+                {
+                    SubwayGraph::start = i;
+                    break;
+                }
+            }
+
+            if(SubwayGraph::start == -1)
+            {
+                QMessageBox::information(0,"info",k);
+
+                //ui->lineEdit->clear();
+                //ui->lineEdit_2->clear();
+                return;
+            }
+        }
+        while(SubwayGraph::end == -1)
+        {
+            input_station = ui->lineEdit_2->text();
+
+            for(int i = 0; i < SubwayGraph::n; i++)
+            {
+                if(SubwayGraph::station_name[i] == input_station)
+                {
+                    SubwayGraph::end = i;
+                    break;
+                }
+            }
+
+            if(SubwayGraph::end == -1)
+            {
+                QMessageBox::information(0,"info",k);
+                //ui->lineEdit->clear();
+                //ui->lineEdit_2->clear();
+                return;
+            }
+        }
+        if(SubwayGraph::start == SubwayGraph::end)
+        {
+            SubwayGraph::start = SubwayGraph::end = -1;
+            QMessageBox::information(0,"info",k2);
+            //ui->lineEdit->clear();
+            //ui->lineEdit_2->clear();
+            return;
+        }
+    }
+    for (int i = 0; i < SubwayGraph::n; i++)
+    {
+        SubwayGraph::check[i] = white;
+        SubwayGraph::map[i].num = -1;
+        SubwayGraph::map[i].time = 99999999;
+        SubwayGraph::map[i].transfer = 99999999;
+    }
+
+    // 시작점과 연결된 인접리스트의 시간과 환승횟수를 map에 넣는다.
+    for (Station* p = SubwayGraph::map[SubwayGraph::start].next; p != NULL; p = p->next)
+    {
+        if (SubwayGraph::station_name[SubwayGraph::start] == SubwayGraph::station_name[p->num]) // 시작점이 곧 환승역일때
+
+        {
+            SubwayGraph::map[p->num].time = 0;
+            SubwayGraph::map[p->num].transfer = 0;
+        }
+        else
+        {
+            SubwayGraph::map[p->num].time = p->time;
+            SubwayGraph::map[p->num].transfer = p->transfer;
+        }
+    }
+    SubwayGraph subway;
+    subway.Dijkstra(SubwayGraph::start, true);
+
+    // 도착역 중에서 소요시간이 가장 작은 역의 index선택
+    SubwayGraph::min = SubwayGraph::map[SubwayGraph::end].time;
+    for (int i = 0; i < SubwayGraph::n; i++)
+    {
+        if (SubwayGraph::station_name[SubwayGraph::end] == SubwayGraph::station_name[i])
+        {
+            if (SubwayGraph::map[i].time < SubwayGraph::min)
+            {
+                SubwayGraph::min = SubwayGraph::map[i].time;
+                SubwayGraph::end = i;
+            }
+        }
+    }
+    subway.SubwayRoute(SubwayGraph::s, SubwayGraph::start, SubwayGraph::end);
+    stack<int> reverse_stack;
+    int i, pre;
+    QString station;
+
+    while (!SubwayGraph::s.empty())
+    {
+       reverse_stack.push(SubwayGraph::s.top());
+       SubwayGraph::s.pop();
+    }
+
+    // 경로 출력
+    for (i = 0, pre = -1; !reverse_stack.empty(); i++)
+    {
+       if (pre != -1 && SubwayGraph::station_name[pre] == SubwayGraph::station_name[reverse_stack.top()])
+       {
+           if (SubwayGraph::station_name[reverse_stack.top()] != SubwayGraph::station_name[SubwayGraph::start])
+           {
+               result = result + "(환승)";
+           }
+           i--;
+           pre = reverse_stack.top();
+           reverse_stack.pop();
+       }
+       else
+       {
+           if (i != 0)
+           {
+               result = result + " -> ";
+           }
+           station = SubwayGraph::station_name[reverse_stack.top()];
+           result = result + station;
+           pre = reverse_stack.top();
+           reverse_stack.pop();
+       }
+    }
+
+    int h = SubwayGraph::map[SubwayGraph::end].time / 60;
+    int m = SubwayGraph::map[SubwayGraph::end].time % 60;
+    result = result + "\n @ 지나는 역의 수 @ : ";
+    result = result + QVariant(i - 1).toString();
+    result = result + "개\n";
+    result = result + "@ 소요시간 @ : ";
+    if (SubwayGraph::map[SubwayGraph::end].time / 60 == 0)
+    {
+       result = result + QVariant(m).toString() + "분\n";
+    }
+    else
+    {
+       result = result + QVariant(h).toString() + "시간" + QVariant(m).toString() + "분\n";
+    }
+    result = result + "@ 환승횟수 @ : "
+            + QVariant(SubwayGraph::map[SubwayGraph::end].transfer).toString() + "번\n";
+    ui->textBrowser->setText(result);
+    return;
+    ui->textBrowser->clear();
+}
+
+void MainWindow::on_search1_clicked()   // 최소환승 클릭시
+{
+    QString result;
     QString input_station;
     QString k = "존재하는 역이 아닙니다";
     QString k2 = "출발역과 도착역이 같습니다";
@@ -366,21 +525,22 @@ void MainWindow::on_search1_2_clicked() // 최단시간 클릭시
         }
     }
     SubwayGraph subway;
-    subway.Dijkstra(SubwayGraph::start, true);
+    subway.Dijkstra(SubwayGraph::start, false);
 
-    // 도착역 중에서 소요시간이 가장 작은 역의 index선택
-    SubwayGraph::min = SubwayGraph::map[SubwayGraph::end].time;
+    // 도착역 중에서 환승횟수가 가장 작은 역의 index선택
+    SubwayGraph::min = SubwayGraph::map[SubwayGraph::end].transfer;
     for (int i = 0; i < SubwayGraph::n; i++)
     {
         if (SubwayGraph::station_name[SubwayGraph::end] == SubwayGraph::station_name[i])
         {
-            if (SubwayGraph::map[i].time < SubwayGraph::min)
+            if (SubwayGraph::map[i].transfer < SubwayGraph::min)
             {
-                SubwayGraph::min = SubwayGraph::map[i].time;
+                SubwayGraph::min = SubwayGraph::map[i].transfer;
                 SubwayGraph::end = i;
             }
         }
     }
+
     subway.SubwayRoute(SubwayGraph::s, SubwayGraph::start, SubwayGraph::end);
     stack<int> reverse_stack;
     int i, pre;
@@ -398,8 +558,9 @@ void MainWindow::on_search1_2_clicked() // 최단시간 클릭시
        if (pre != -1 && SubwayGraph::station_name[pre] == SubwayGraph::station_name[reverse_stack.top()])
        {
           if (SubwayGraph::station_name[reverse_stack.top()] != SubwayGraph::station_name[SubwayGraph::start])
-            ui->textBrowser->setText("(환승)");
-
+          {
+              result = result + "(환승)";
+          }
           i--;
           pre = reverse_stack.top();
           reverse_stack.pop();
@@ -408,45 +569,36 @@ void MainWindow::on_search1_2_clicked() // 최단시간 클릭시
        {
           if (i != 0)
           {
-              ui->textBrowser->setText(" -> ");
-              qDebug() << " -> ";
+              result = result + " -> ";
           }
-          //MainWindow::ui->textBrowser->setText(SubwayGraph::station_name[reverse_stack.top()]);
           station = SubwayGraph::station_name[reverse_stack.top()];
-          ui->textBrowser->setText(station);
-          qDebug() << " " << station;
+          result = result + station;
           pre = reverse_stack.top();
           reverse_stack.pop();
-
        }
     }
 
     int h = SubwayGraph::map[SubwayGraph::end].time / 60;
     int m = SubwayGraph::map[SubwayGraph::end].time % 60;
-    //cout << endl << "@ 지나는 역의 수 @ : " << i - 1 << "개 " << endl;
-    ui->textBrowser->setText("\n @ 지나는 역의 수 @ : ");
-    ui->textBrowser->setText(QString::number(i - 1));
-    ui->textBrowser->setText("개 ");
-    ui->textBrowser->setText("\n");
-    ui->textBrowser->setText("@ 소요시간 @ : ");
-    //cout << "@ 소요시간 @ : ";
-    if (SubwayGraph::map[SubwayGraph::end].time / 60 == 0){
-       //cout << m << "분" << endl;
-       ui->textBrowser->setText(QString::number(m));
-       ui->textBrowser->setText("분");
-       ui->textBrowser->setText("\n");
+    result = result + "\n @ 지나는 역의 수 @ : ";
+    result = result + QVariant(i - 1).toString();
+    result = result + "개\n";
+    result = result + "@ 소요시간 @ : ";
+    if (SubwayGraph::map[SubwayGraph::end].time / 60 == 0)
+    {
+       result = result + QVariant(m).toString() + "분\n";
     }
-    else{
-       //cout << h << "시간 " << m << "분" << endl;
-       ui->textBrowser->setText(QString::number(h));
-       ui->textBrowser->setText("시간");
-       ui->textBrowser->setText(QString::number(m));
-       ui->textBrowser->setText("분");
-       ui->textBrowser->setText("\n");
+    else
+    {
+       result = result + QVariant(h).toString() + "시간" + QVariant(m).toString() + "분\n";
     }
-    //cout << "@ 환승횟수 @ : " << map[end].transfer << "번" << endl;
-    ui->textBrowser->setText("@ 환승횟수 @");
-    ui->textBrowser->setText(QString::number(SubwayGraph::map[SubwayGraph::end].transfer));
-    ui->textBrowser->setText("번");
-    ui->textBrowser->setText("\n");
+    result = result + "@ 환승횟수 @ : "
+            + QVariant(SubwayGraph::map[SubwayGraph::end].transfer).toString() + "번\n";
+    ui->textBrowser->setText(result);
+    return;
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    delete ui;
 }
