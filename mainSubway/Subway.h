@@ -27,12 +27,15 @@ public:
         void Subway(const char* name, int N);
         void Dijkstra(int start, bool t);
         int ChooseSubwayPath(bool choose);
+        bool SubwayRoute(stack<int>& s, int start, int end);
         static QString* station_name; // 역이름
         static Station* map;
         static color* check;
         static int n; // 지하철 역 갯수
         static int start; // 시작역
         static int end; // 도착역
+        static int min;
+        static stack<int> s;
 };
 
 #endif // SUBWAY_H
