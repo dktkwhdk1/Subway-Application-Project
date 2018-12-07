@@ -1,4 +1,4 @@
-#include "Subway.h"
+#include "SubwayGraph.h"
 using namespace std;
 
 void SubwayGraph::Subway(const char* name, int N)
@@ -76,8 +76,8 @@ void SubwayGraph::Subway(const char* name, int N)
 
 	}
 	file.close();
-}
-string input_station; // 역 입력
+
+	string input_station; // 역 입력
 
 	// 지하철 시작, 끝부분 입력과 예외처리
 	while (start == end)
@@ -132,7 +132,79 @@ string input_station; // 역 입력
 			start = end = -1;
 		}
 	}
+
+
+	// check배열, map init
+	for (int i = 0; i < n; i++)
+	{
+		check[i] = white;
+		map[i].num = -1;
+		map[i].time = 99999999;
+		map[i].transfer = 99999999;
+	}
+
+	// 시작점과 연결된 인접리스트의 시간과 환승횟수를 map에 넣는다.
+	for (Station* p = map[start].next; p != NULL; p = p->next)
+	{
+		if (station_name[start] == station_name[p->num]) // 시작점이 곧 환승역일때 
+		{
+			map[p->num].time = 0;
+			map[p->num].transfer = 0;
+		}
+		else
+		{
+			map[p->num].time = p->time;
+			map[p->num].transfer = p->transfer;
+		}
+	}
+
+	stack<int> s;
+	int choice; // 최단시간과 최소환승중에 택
+	cout << "최단시간 -> input 0 / 최소환승 -> input 1 : ";
+	cin >> choice;
+	cout << endl;
+
+	if (choice == 0){
+		cout << "*** 최단시간 경로 ***" << endl;
+		Dijkstra(start, true);
+
+		// 도착역 중에서 소요시간이 가장 작은 역의 index선택
+		min = map[end].time;
+		for (int i = 0; i < n; i++)
+		{
+			if (station_name[end] == station_name[i])
+			{
+				if (map[i].time < min)
+				{
+					min = map[i].time;
+					end = i;
+				}
+			}
+		}
+	}
+	else{
+		cout << endl;
+		cout << "*** 최소환승 경로 ***" << endl;
+		this->Dijkstra(start, false);
+
+		// 도착역 중에서 환승횟수가 가장 작은 역의 index선택
+		min = map[end].transfer;
+		for (int i = 0; i < n; i++)
+		{
+			if (station_name[end] == station_name[i])
+			{
+				if (map[i].transfer < min)
+				{
+					min = map[i].transfer;
+					end = i;
+				}
+			}
+		}
+	}
+	SubwayRoute(s, start, end);
+	PrintRoute(s, start, end);
 }
+
 void SubwayGraph::Dijkstra(int start, bool choose) // 다익스트라 알고리즘 사용
 {
 	int minvalue_pos;
@@ -170,6 +242,7 @@ void SubwayGraph::Dijkstra(int start, bool choose) // 다익스트라 알고리�
 	}
 
 }
+
 int SubwayGraph::ChooseSubwayPath(bool choose) // choose = 1이면 최단시간을 가지는 역의 
 											//index반환, choose = 0이면 최소환승을 가지는 역의 index반환
 {
@@ -230,6 +303,7 @@ int SubwayGraph::ChooseSubwayPath(bool choose) // choose = 1이면 최단시간�
 	}
 	return pos; // 인덱스 반환
 }
+
 bool SubwayGraph::SubwayRoute(stack<int> &s, int start, int end) // stack에 지나간 지하철을 넣어주는 재귀함수
 {
 	s.push(start);
@@ -247,4 +321,53 @@ bool SubwayGraph::SubwayRoute(stack<int> &s, int start, int end) // stack에 지
 		}
 		return false;
 	}
+}
+
+void SubwayGraph::PrintRoute(stack<int>& s, int start, int end)
+{
+	stack<int> reverse_stack;
+	int i, pre;
+
+	while (!s.empty())
+	{
+		reverse_stack.push(s.top());
+		s.pop();
+	}
+
+	// 경로 출력
+	for (i = 0, pre = -1; !reverse_stack.empty(); i++)
+	{
+
+		if (pre != -1 && station_name[pre] == station_name[reverse_stack.top()])
+		{
+			if (station_name[reverse_stack.top()] != station_name[start])
+				cout << "(환승)";
+
+			i--;
+			pre = reverse_stack.top();
+			reverse_stack.pop();
+		}
+		else
+		{
+			if (i != 0)
+				cout << " -> ";
+
+			cout << station_name[reverse_stack.top()];
+			pre = reverse_stack.top();
+			reverse_stack.pop();
+
+		}
+	}
+
+	int h = map[end].time / 60;
+	int m = map[end].time % 60;
+	cout << endl << "@ 지나는 역의 수 @ : " << i - 1 << "개 " << endl;
+	cout << "@ 소요시간 @ : ";
+	if (map[end].time / 60 == 0){
+		cout << m << "분" << endl;
+	}
+	else{
+		cout << h << "시간 " << m << "분" << endl;
+	}
+	cout << "@ 환승횟수 @ : " << map[end].transfer << "번" << endl;
 }
