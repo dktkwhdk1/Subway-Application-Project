@@ -133,7 +133,6 @@ void SubwayGraph::Subway(const char* name, int N)
 		}
 	}
 
-
 	// check배열, map init
 	for (int i = 0; i < n; i++)
 	{
@@ -231,6 +230,22 @@ void SubwayGraph::Dijkstra(int start, bool choose) // 다익스트라 알고리�
 				else if (map[minvalue_pos].time + p->time == map[p->num].time) // 시간이 같을 경우
 				{
 					if (map[minvalue_pos].transfer + p->transfer < map[p->num].transfer) // 환승횟수 비교
+					{
+						map[p->num].time = map[minvalue_pos].time + p->time;
+						map[p->num].transfer = map[minvalue_pos].transfer + p->transfer;
+					}
+				}
+			}
+			else // 최소환승 경로일때
+			{
+				if (map[minvalue_pos].transfer + p->transfer < map[p->num].transfer) // 환승횟수를 비교하여 업데이트
+				{
+					map[p->num].time = map[minvalue_pos].time + p->time;
+					map[p->num].transfer = map[minvalue_pos].transfer + p->transfer;
+				}
+				else if (map[minvalue_pos].transfer + p->transfer == map[p->num].transfer) // 환승횟수가 같을 경우
+				{
+					if (map[minvalue_pos].time + p->time < map[p->num].time) // 시간 비교
 					{
 						map[p->num].time = map[minvalue_pos].time + p->time;
 						map[p->num].transfer = map[minvalue_pos].transfer + p->transfer;
