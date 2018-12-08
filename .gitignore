@@ -27,6 +27,7 @@
 *.app
 *.la
 *.lai
+*.swp
 
 target_wrapper.*
 *.autosave
