@@ -31,25 +31,14 @@ public:
 
 
 private slots:
-    //void on_pushButton_clicked();
 
     void on_pushButton_3_clicked();
 
-    //void on_lineEdit_textEdited(const QString &arg1);
-
     void on_search1_clicked();
-
-    void on_lineEdit_returnPressed();
-
-    void on_lineEdit_2_returnPressed();
-
-    void on_search1_2_clicked();
 
     void on_pushButton_clicked();
 
     void on_pushButton_2_clicked();
-
-    void on_pushButton_4_clicked();
 
     void on_listWidget_itemClicked(QListWidgetItem *item);
 
