@@ -1,4 +1,4 @@
-#include "SubwayGraph.h"
+#include "Subway.h"
 using namespace std;
 
 void SubwayGraph::Subway(const char* name, int N)

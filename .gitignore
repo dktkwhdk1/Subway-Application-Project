@@ -28,7 +28,8 @@
 *.la
 *.lai
 *.swp
-
+*.pro.swp
+*.cpp.swp
 target_wrapper.*
 *.autosave
 
