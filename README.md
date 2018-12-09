@@ -12,4 +12,7 @@ QT creator 5.10.0
 C++
 
 # BUILD & COMPILE
-qmake
+g++, qmake
+
+# 사용한 라이브러리
+공유라이브러리(mainwindow.cpp -> mainSubway_qmake/LIB/libmyfuncs.so.1)
