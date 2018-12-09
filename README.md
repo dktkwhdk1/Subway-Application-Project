@@ -10,3 +10,6 @@ QT creator 5.10.0
 
 # 사용한 언어
 C++
+
+# BUILD & COMPILE
+qmake
